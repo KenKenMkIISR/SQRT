@@ -1,0 +1,30 @@
+REM Calculate 4th root(N)
+REM  by BIGNUM Class (1000 digits)
+
+USECLASS BIGNUM
+
+N=3
+K=1:WHILE K*K*K*K<=N:K=K+1:WEND:K=K-1
+A=NEW(BIGNUM,K):B=NEW(BIGNUM,0)
+C=NEW(BIGNUM,0):D=NEW(BIGNUM,5*N)
+
+WIDTH 48
+PRINT "Calculating ";N;"^(1/4)..."
+PRINT "Initial Value=";K
+
+DO
+ C.AS(A)
+ B.MUL2(A,A):B.MUL2(B,B):B.SUB(D,B)
+ B.DIV(B,N*4):A.MUL2(A,B)
+ PRINT "*";
+LOOP UNTIL A.EQUAL(C)
+
+PRINT:PRINT N;"^(1/4)="
+A.PRT(1,1000)
+
+DO:IDLE:LOOP UNTIL INKEY()
+
+A.MUL2(A,A):A.MUL2(A,A)
+PRINT:PRINT "(";N;"^(1/4))^4 ="
+A.PRT(1,1000)
+END
